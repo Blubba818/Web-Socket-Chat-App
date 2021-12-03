@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+  background-color: #15151e;
+}
+
+h1, h2, h3, h4, h5, h6, p, label, a {
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c3c3d5;
+}
+
+.container {
+  padding: 1rem;
+}
+
+#title-row {
+  margin-bottom: 2rem;
+}
+
+.user-info {
+  margin-bottom: 1rem;
+}
+
+#message-entry {
+  margin-bottom: 1rem;
+}
+
+.message-box {
+  padding-bottom: '1rem';
+  min-height: 50vh;
+  background-color: black;
+  margin: 1rem;
+  padding: 1rem 2rem;
+}
+
+.message {
+  padding: .5rem;
+  max-width: 60%;
+}
+
+input, select, textarea {
+  background-color: black !important;
+  border: none !important;
+}
+
+textarea {
+  margin: 0 auto;
+}
+
+#error {
+  color: red;
+}
+
+button {
+  width: 100%;
+  height: 80%;
+  margin: 0 auto;
+}
+
+.btn-primary {
+  background-color: #2e2eb8;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #1f1f7a;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  background-color: #141452;
+}
+
+.iffffff {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/triforce-icon.png);
+}
+
+.i9966ff {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/shadow-icon.png);
+}
+
+.i0099ff {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/water-icon.png);
+}
+
+.iff0040 {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/fire-icon.png);
+}
+
+.iffcc00 {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/light-icon.png);
+}
+
+.i33cc33 {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/forest-icon.png);
+}
+
+.i00ff99 {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/clover-icon.png);
+}
+
+.iff9966 {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/spirit-icon.png);
+}
+
+.i9999ff {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/storm-icon.png);
+}
+
+.iff99cc {
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/heart-icon.png);
+}
+
+.iffffffxl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/triforce.png);
+}
+
+.i9966ffxl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/shadow.png);
+}
+
+.i0099ffxl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/water.png);
+}
+
+.iff0040xl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/fire.png);
+}
+
+.iffcc00xl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/light.png);
+}
+
+.i33cc33xl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/forest.png);
+}
+
+.i00ff99xl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/clover.png);
+}
+
+.iff9966xl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/spirit.png);
+}
+
+.i9999ffxl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/storm.png);
+}
+
+.iff99ccxl {
+  width: 100px;
+  height: 100px;
+  background-image: url(./img/heart.png);
+}
