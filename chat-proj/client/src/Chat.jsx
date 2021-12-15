@@ -81,7 +81,7 @@ const Chat = () => {
     const [postMessage] = useMutation(POST_MESSAGE)
 
     const onSend = () => {
-        if (state.content != '' && state.user != '') {
+        if (state.content != '') {
 
             postMessage({
                 variables: state
@@ -94,93 +94,119 @@ const Chat = () => {
         } else {
             stateSet({
                 ... state,
-                error: '*Either your username or message are blank, please check both before sending a message.*'
+                error: '*Message must not be blank, please enter a message and send again.*'
             })
         }
     }
 
-    return (
-        <div className='container'>
-            <div className="row" id="title-row">
-                <div className="col-sm-1">
-                    <div className={state.icon + "xl"}></div>
-                </div>
-                <div className="col-sm-11">
-                    <h1 id="title">Anonymous Chatroom</h1>
-                    <h5>Enter a username and select an icon before chatting.</h5>
-                </div>
-            </div>
-            
-            
+    const logOn = (evt) => {
+        if (evt.target.username.value != '') {
+            stateSet({
+                ... state,
+                error: '',
+                user: evt.target.username.value
+            })
+        } else {
+            stateSet({
+                ... state,
+                error: '*Username must not be blank, please enter a username and try again.*'
+            })
+        }
+    }
+
+    if (state.user == '') {
+        return (
             <div className="row user-info">
-                <div className="col-sm-6">
-                    <div className="form-group">
-                        <label htmlFor='userInput'>Username:</label>
-                        <input style={{ color: '#' + state.color }} className='form-control' type="text" id='userInput' value={state.user} onChange={(evt) => stateSet({
-                            ... state,
-                            user: evt.target.value
-                        })}/>
+                <h5>Please enter a username and select an icon.</h5>
+                <p id='error'>{state.error}</p>
+                <form onSubmit={(evt) => logOn(evt)}>
+                    <div className="form-group row user-form">
+                        <div className="col-sm-12">
+                            <label htmlFor='userInput'>Username:</label>
+                            <input style={{ color: '#' + state.color }} className='form-control' type="text" id='userInput' name="username"/>
+                        </div>
                     </div>
-                </div>
-                <div className="col-sm-6">
-                    <div className="form-group">
-                        <label htmlFor="icon-select">Icon / Text Color:</label>
-                        <select style={{ color: '#' + state.color }} className="form-control" id="icon-select" onChange={(evt) => stateSet ({
-                            ... state,
-                            icon: evt.target.value,
-                            color: evt.target.value.slice(1)
-                        })}>
-                            <option selected value="iffffff" style={{ color: '#ffffff' }}>White</option>
-                            <option value="i9966ff" style={{ color: '#9966ff' }}>Purple</option>
-                            <option value="i0099ff" style={{ color: '#0099ff' }}>Blue</option>
-                            <option value="iff0040" style={{ color: '#ff0040' }}>Red</option>
-                            <option value="iffcc00" style={{ color: '#ffcc00' }}>Yellow</option>
-                            <option value="i33cc33" style={{ color: '#33cc33' }}>Green</option>
-                            <option value="i00ff99" style={{ color: '#00ff99' }}>Mint</option>
-                            <option value="iff9966" style={{ color: '#ff9966' }}>Orange</option>
-                            <option value="i9999ff" style={{ color: '#9999ff' }}>Indigo</option>
-                            <option value="iff99cc" style={{ color: '#ff99cc' }}>Pink</option>
-                        </select>
+                    <div className="form-group row user-form">
+                        <div className="col-sm-11">
+                            <label htmlFor="icon-select">Icon / Text Color:</label>
+                            <select style={{ color: '#' + state.color }} className="form-control" id="icon-select" onChange={(evt) => stateSet ({
+                                ... state,
+                                icon: evt.target.value,
+                                color: evt.target.value.slice(1)
+                            })}>
+                                <option selected value="iffffff" style={{ color: '#ffffff' }}>White</option>
+                                <option value="i9966ff" style={{ color: '#9966ff' }}>Purple</option>
+                                <option value="i0099ff" style={{ color: '#0099ff' }}>Blue</option>
+                                <option value="iff0040" style={{ color: '#ff0040' }}>Red</option>
+                                <option value="iffcc00" style={{ color: '#ffcc00' }}>Yellow</option>
+                                <option value="i33cc33" style={{ color: '#33cc33' }}>Green</option>
+                                <option value="i00ff99" style={{ color: '#00ff99' }}>Mint</option>
+                                <option value="iff9966" style={{ color: '#ff9966' }}>Orange</option>
+                                <option value="i9999ff" style={{ color: '#9999ff' }}>Indigo</option>
+                                <option value="iff99cc" style={{ color: '#ff99cc' }}>Pink</option>
+                            </select>
+                        </div>
+                        <div className="col-sm-1">
+                            <div className={state.icon}></div>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" className="btn btn-primary" id="form-submit">Enter the Chatroom</button>
+                </form>
             </div>
-            <a href="#message-entry">Go to Bottom</a>
-            <Messages user={state.user} />
-            <div className="row" id="message-entry">
-                <p>You are messaging as:</p>
+        )
+    } else {
+        console.log(state.user)
+        return (
+            <div>
+                <h5>Welcome <span style={{ color: '#' + state.color }}>{state.user}</span>!</h5>
+                <a href="#message-entry">Go to Bottom</a>
+                <Messages user={state.user} />
+                <div className="row" id="message-entry">
+                    <p id='error'>{state.error}</p>
+                    <div className="col-sm-8">
+                        <div className="form-group">
+                            <label htmlFor='messageInput'>Message:</label>
+                            <textarea className='form-control' type="text" id='messageInput' rows="5" value={state.content} onChange={(evt) => stateSet({
+                                ... state,
+                                content: evt.target.value
+                            })} onKeyUp={(evt) => {
+                                if (evt.keyCode === 13) {
+                                    onSend()
+                                }
+                            }} style={{ color: '#' + state.color }}/>
+                        </div>
+                    </div>
+                    <div className="col-sm-2 message-div">
+                        <button className='btn btn-primary message-send' onClick={() => onSend()}>Send</button>
+                    </div>
+                </div>
                 <div className="row user-info">
-                    <div className="col-sm-1">
+                    <p>You are messaging as:</p>
+                    <div className="col-sm-2">
                         <div className={state.icon}></div>
                     </div>
-                    <div className="col-sm-11">
+                    <div className="col-sm-8">
                         <h5 style={{ color: '#' + state.color }}>{state.user}</h5>
                     </div>
-
                 </div>
-                <p id='error'>{state.error}</p>
-                <div className="col-sm-11">
-                    <div className="form-group">
-                        <label htmlFor='messageInput'>Message:</label>
-                        <textarea className='form-control' type="text" id='messageInput' rows="5" value={state.content} onChange={(evt) => stateSet({
+                <div className="row">
+                    <div className="col-sm-3">
+                        <button className="btn btn-danger exit-btn" onClick={() => stateSet({
                             ... state,
-                            content: evt.target.value
-                        })} onKeyUp={(evt) => {
-                            if (evt.keyCode === 13) {
-                                onSend()
-                            }
-                        }} style={{ color: '#' + state.color }}/>
+                            user: '',
+                            icon: 'iffffff',
+                            color: 'ffffff',
+                            content: '',
+                            error: ''
+                        })}>Leave Chatroom</button>
                     </div>
                 </div>
-                <div className="col-sm-1">
-                    <p></p>
-                    <button className='btn btn-primary' onClick={() => onSend()}>Send</button>
+                <div className="row">
+                    <a href="#title">Back to Top</a>
                 </div>
             </div>
-            <div className="row">
-                <a href="#title">Back to Top</a>
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default () => (
